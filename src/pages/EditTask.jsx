@@ -5,25 +5,16 @@ import TaskForm from "../components/TaskForm";
 const EditTask = ({ tasks, setTasks }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const task = tasks.find(t => t.id === parseInt(id));
 
-  const handleEdit = data => {
-    const updatedTasks = tasks.map(t =>
-      t.id === task.id ? { ...t, ...data } : t
-    );
-    setTasks(updatedTasks);
+  const taskToEdit = tasks.find(task => task.id === id);
+
+  const handleSubmit = (data) => {
+    const updated = tasks.map(task => task.id === id ? { ...data, id } : task);
+    setTasks(updated);
     navigate("/");
   };
 
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      {task ? (
-        <TaskForm onSubmit={handleEdit} initialData={task} />
-      ) : (
-        <p className="text-red-500">Task not found.</p>
-      )}
-    </div>
-  );
+  return <TaskForm onSubmit={handleSubmit} initialData={taskToEdit} />;
 };
 
 export default EditTask;

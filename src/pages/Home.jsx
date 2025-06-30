@@ -1,22 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import TaskTable from "../components/TaskTable";
 
 const Home = ({ tasks, setTasks }) => {
-  const deleteTask = id => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const deleteTask = (id) => {
+    const updated = tasks.filter(task => task.id !== id);
+    setTasks(updated);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Task Management</h1>
-      <div className="flex justify-end mb-4">
-        <Link to="/create" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow">
-          + Create Task
-        </Link>
-      </div>
+    <main className="px-6 py-8 max-w-5xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">All Tasks</h2>
       <TaskTable tasks={tasks} deleteTask={deleteTask} />
-    </div>
+    </main>
   );
 };
 
